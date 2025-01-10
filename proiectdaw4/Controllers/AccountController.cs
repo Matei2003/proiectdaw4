@@ -8,7 +8,7 @@ using System.Numerics;
 namespace proiectdaw4.Controllers
 {
 
-    [Route("[controller]/[action]")]
+    [Route("[controller]/[action]/{id?}")]
     public class AccountController : Controller
     {
         private readonly AuthenticationService _authService;
@@ -37,8 +37,29 @@ namespace proiectdaw4.Controllers
         }
 
         [HttpGet]
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile(int id)
         {
+            var email = HttpContext.Session.GetString("Email");
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var rezervari = await _context.Inchirieri
+                .Include(i => i.Proprietate)
+                .Where(i => i.UserId == user.Id)
+                .ToListAsync();
+
+            ViewBag.Rezervari = rezervari;
+            ViewBag.UserName = user.FirstName + " " + user.LastName;
+
             return View();
         }
 
@@ -81,6 +102,23 @@ namespace proiectdaw4.Controllers
             Response.Cookies.Delete(".AspNetCore.Session");
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var rezervare = await _context.Inchirieri.FindAsync(id);
+
+            if (rezervare == null)
+            {
+                ViewBag.ErrorMessage = "Rezervarea nu a fost găsita.";
+                return RedirectToAction("Profile");
+            }
+
+            _context.Inchirieri.Remove(rezervare);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Profile");
         }
     }
 

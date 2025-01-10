@@ -41,17 +41,38 @@
 </div>
 
 <script>
-    function showConfirmation() {
+    async function showConfirmation() {
         var dataInceput = document.getElementById('dataInceput').value;
         var dataFinal = document.getElementById('dataFinal').value;
+
+        if (!dataInceput || !dataFinal) {
+            alert("Te rugam sa selectezi ambele date.");
+            return;
+        }
+
+        var proprietateId = @Model.ProprietateId;
         var numarZile = (new Date(dataFinal) - new Date(dataInceput)) / (1000 * 60 * 60 * 24);
         var pretTotal = numarZile * @Model.Proprietate.Price;
 
-        document.getElementById('confirmDataInceput').textContent = dataInceput;
-        document.getElementById('confirmDataFinal').textContent = dataFinal;
-        document.getElementById('confirmNumarZile').textContent = numarZile;
-        document.getElementById('confirmPretTotal').textContent = pretTotal.toFixed(2);
+        try {
+            var response = await fetch(`/Renting/VerificaDisponibilitate?proprietateId=${proprietateId}&dataInceput=${dataInceput}&dataFinal=${dataFinal}`);
+            var result = await response.json();
 
-        document.getElementById('confirmationDetails').style.display = 'block';
+            if (result.disponibil) {
+                alert("Proprietatea a fost inchiriata cu succes.");
+                document.getElementById('confirmDataInceput').textContent = dataInceput;
+                document.getElementById('confirmDataFinal').textContent = dataFinal;
+                document.getElementById('confirmNumarZile').textContent = numarZile;
+                document.getElementById('confirmPretTotal').textContent = pretTotal.toFixed(2);
+
+                document.getElementById('confirmationDetails').style.display = 'block';
+            } else {
+                alert("Proprietatea este deja inchiriata in acea perioada. Te rugam sa alegi alte date de inchiriere.");
+                document.getElementById('confirmationDetails').style.display = 'none';
+            }
+        } catch (error) {
+            console.error("Eroare:", error);
+            alert("Eroare.");
+        }
     }
 </script>

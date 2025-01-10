@@ -83,25 +83,24 @@ namespace proiectdaw4.Controllers
         [HttpPost]
         public async Task<IActionResult> Inchiriaza(Inchiriere inchiriere)
         {
-            if (ModelState.IsValid)
-            {
+            
                 if (inchiriere == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Inchirierea nu a fost completată corect.");
+                    ModelState.AddModelError(string.Empty, "Inchirierea nu a fost completata corect.");
                     return View(inchiriere);
                 }
 
                 var proprietate = await _context.Proprietati.FirstOrDefaultAsync(p => p.Id == inchiriere.ProprietateId);
                 if (proprietate == null)
                 {
-                    ModelState.AddModelError(string.Empty, "Proprietatea nu a fost găsită.");
+                    ModelState.AddModelError(string.Empty, "Proprietatea nu a fost gasita.");
                     return View(inchiriere);
                 }
 
                 inchiriere.NumarZile = (inchiriere.DataFinal.ToDateTime(new TimeOnly()) - inchiriere.DataInceput.ToDateTime(new TimeOnly())).Days;
                 if (inchiriere.NumarZile <= 0)
                 {
-                    ModelState.AddModelError(string.Empty, "Data de încheiere trebuie să fie după data de început.");
+                    ModelState.AddModelError(string.Empty, "Data de incheiere trebuie sa fie după data de inceput.");
                     return View(inchiriere);
                 }
 
@@ -122,15 +121,23 @@ namespace proiectdaw4.Controllers
                 inchiriere.UserId = user.Id; 
                 inchiriere.ProprietateId = proprietate.Id;
 
+            var existaSuprapunere = await _context.Inchirieri.AnyAsync(i =>
+                i.ProprietateId == inchiriere.ProprietateId &&
+                ((i.DataInceput <= inchiriere.DataFinal && i.DataFinal >= inchiriere.DataInceput))
+            );
+
+            if (!existaSuprapunere)
+            {
                 var inchiriereNoua = new Inchiriere
                 {
                     ProprietateId = proprietate.Id,
                     UserId = user.Id,
-                    Proprietate = proprietate
                     PretTotal = inchiriere.PretTotal,
                     NumarZile = inchiriere.NumarZile,
                     DataInceput = inchiriere.DataInceput,
                     DataFinal = inchiriere.DataFinal,
+                    Proprietate = proprietate,
+                    User = user
                 };
 
                 _context.Inchirieri.Add(inchiriereNoua);
@@ -139,11 +146,24 @@ namespace proiectdaw4.Controllers
                 return RedirectToAction("ListaProprietati");
             }
 
-            return View(inchiriere); 
+            return RedirectToAction("Error", "Home");      
+
         }
 
 
+        [HttpGet]
+        public async Task<JsonResult> VerificaDisponibilitate(int proprietateId, DateOnly dataInceput, DateOnly dataFinal)
+        {
+            // Verifică dacă există vreo închiriere care se suprapune cu perioada selectată
+            var existaSuprapunere = await _context.Inchirieri.AnyAsync(i =>
+                i.ProprietateId == proprietateId &&
+                (
+                    (i.DataInceput <= dataFinal && i.DataFinal >= dataInceput) // Suprapunere directă
+                )
+            );
 
+            return Json(new { disponibil = !existaSuprapunere });
+        }
 
 
 

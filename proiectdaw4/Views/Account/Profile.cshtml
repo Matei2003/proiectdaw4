@@ -2,4 +2,27 @@
     ViewData["Title"] = "Profil";
 }
 
-<h2>Profil: @Context.Session.GetString("User")</h2>
+<h2>Profil: @ViewBag.UserName</h2>
+
+@if (ViewBag.Rezervari != null && ViewBag.Rezervari.Count > 0)
+{
+    <h3>Rezervarile tale:</h3>
+    <ul>
+        @foreach (var rezervare in ViewBag.Rezervari)
+        {
+            <li>
+                <strong>@rezervare.Proprietate.Name</strong><br />
+                Perioada: @rezervare.DataInceput - @rezervare.DataFinal<br />
+                Pret total: @rezervare.PretTotal<br />
+
+                <form method="post" asp-controller="Account" asp-action="Delete" asp-route-id="@rezervare.Id">
+                    <button type="submit" class="btn btn-danger">Sterge Rezervarea</button>
+                </form>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Nu ai nicio rezervare.</p>
+}
