@@ -41,7 +41,7 @@
 </div>
 
 <script>
-    async function showConfirmation() {
+        async function showConfirmation() {
         var dataInceput = document.getElementById('dataInceput').value;
         var dataFinal = document.getElementById('dataFinal').value;
 
@@ -57,6 +57,7 @@
         try {
             var response = await fetch(`/Renting/VerificaDisponibilitate?proprietateId=${proprietateId}&dataInceput=${dataInceput}&dataFinal=${dataFinal}`);
             var result = await response.json();
+            console.log('Răspuns disponibilitate:', result);
 
             if (result.disponibil) {
                 alert("Proprietatea a fost inchiriata cu succes.");
@@ -75,4 +76,5 @@
             alert("Eroare.");
         }
     }
+
 </script>

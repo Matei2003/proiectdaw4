@@ -12,9 +12,7 @@ namespace proiectdaw4.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
-
-        
+        }       
 
         [Route("/")]
         public IActionResult Index()

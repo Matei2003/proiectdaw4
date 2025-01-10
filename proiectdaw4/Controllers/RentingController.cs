@@ -154,11 +154,10 @@ namespace proiectdaw4.Controllers
         [HttpGet]
         public async Task<JsonResult> VerificaDisponibilitate(int proprietateId, DateOnly dataInceput, DateOnly dataFinal)
         {
-            // Verifică dacă există vreo închiriere care se suprapune cu perioada selectată
             var existaSuprapunere = await _context.Inchirieri.AnyAsync(i =>
                 i.ProprietateId == proprietateId &&
                 (
-                    (i.DataInceput <= dataFinal && i.DataFinal >= dataInceput) // Suprapunere directă
+                    (i.DataInceput <= dataFinal && i.DataFinal >= dataInceput)
                 )
             );
 

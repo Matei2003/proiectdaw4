@@ -111,7 +111,7 @@ namespace proiectdaw4.Controllers
 
             if (rezervare == null)
             {
-                ViewBag.ErrorMessage = "Rezervarea nu a fost găsita.";
+                ViewBag.ErrorMessage = "Rezervarea nu a fost gasita.";
                 return RedirectToAction("Profile");
             }
 

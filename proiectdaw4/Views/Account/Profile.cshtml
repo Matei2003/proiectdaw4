@@ -14,6 +14,7 @@
                 <strong>@rezervare.Proprietate.Name</strong><br />
                 Perioada: @rezervare.DataInceput - @rezervare.DataFinal<br />
                 Pret total: @rezervare.PretTotal<br />
+                Email Proprietar: @rezervare.Proprietate.UserEmail<br />
 
                 <form method="post" asp-controller="Account" asp-action="Delete" asp-route-id="@rezervare.Id">
                     <button type="submit" class="btn btn-danger">Sterge Rezervarea</button>
