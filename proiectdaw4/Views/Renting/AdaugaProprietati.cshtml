@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Adauga proprietati";
+}
+@model proiectdaw4.Model.Proprietate
+
+<h2>Adauga o proprietate</h2>
+
+<form method="post" asp-controller="Renting" asp-action="AdaugaProprietate">
+    <div class="form-group">
+        <label for="numeProprietate">Nume</label>
+        <input type="text" id="numeProprietate" asp-for="Name" class="form-control" placeholder="Ex: Casa Denis" />
+    </div>
+    <div class="form-group">
+        <label for="descriere">Descriere</label>
+        <input type="text" id="descriere" asp-for="Description" class="form-control" placeholder="Descrierea Locatiei" />
+    </div>
+    <div class="form-group">
+        <label for="type">Tip</label>
+        <input type="text" id="type" asp-for="Type" class="form-control" placeholder="ex: Vila - 5 camere, Apartament - 3 camere" />
+    </div>
+    <div class="form-group">
+        <label for="price">Pret (RON) / Noapte</label>
+        <input type="number" id="price" asp-for="Price" class="form-control" placeholder="100" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+</form>

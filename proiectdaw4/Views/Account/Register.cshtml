@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>Register</h2>
+
+<form method="post" asp-controller="Account" asp-action="Register">
+    <div class="form-group">
+        <label for="firstName">Prenume</label>
+        <input type="text" id="firstName" name="firstName" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="lastName">Nume</label>
+        <input type="text" id="lastName" name="lastName" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="password">Parola</label>
+        <input type="password" id="password" name="password" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="phone">Telefon</label>
+        <input type="text" id="phone" name="phone" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Inregistreaza-te</button>
+</form>
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger mt-3">
+        @ViewBag.ErrorMessage
+    </div>
+}

@@ -1,0 +1,57 @@
+﻿@model proiectdaw4.Model.Inchiriere
+
+<h2>Inchiriaza proprietatea: @Model.Proprietate.Name</h2>
+
+<div class="form-group">
+    <label>Nume Proprietate:</label>
+    <p>@Model.Proprietate.Name</p>
+</div>
+<div class="form-group">
+    <label>Descriere:</label>
+    <p>@Model.Proprietate.Description</p>
+</div>
+<div class="form-group">
+    <label>Pret:</label>
+    <p>@Model.Proprietate.Price</p>
+</div>
+
+<form method="post" asp-controller="Renting" asp-action="Inchiriaza">
+    <!-- Adaugă câmpul ascuns pentru ProprietateId -->
+    <input type="hidden" asp-for="ProprietateId" value="@Model.ProprietateId" />
+
+    <div class="form-group">
+        <label for="dataInceput">Data Inceput</label>
+        <input type="date" id="dataInceput" asp-for="DataInceput" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="dataFinal">Data Final</label>
+        <input type="date" id="dataFinal" asp-for="DataFinal" class="form-control" required />
+    </div>
+    <button type="button" class="btn btn-secondary mt-3" onclick="showConfirmation()">Vezi detaliile</button>
+
+    <button type="submit" class="btn btn-primary mt-3">Inchiriaza</button>
+</form>
+
+<div id="confirmationDetails" style="display:none; margin-top: 20px;">
+    <h4>Confirmare Inchiriere</h4>
+    <p><strong>Data Inceput:</strong> <span id="confirmDataInceput"></span></p>
+    <p><strong>Data Final:</strong> <span id="confirmDataFinal"></span></p>
+    <p><strong>Număr Zile:</strong> <span id="confirmNumarZile"></span></p>
+    <p><strong>Pret Total:</strong> <span id="confirmPretTotal"></span></p>
+</div>
+
+<script>
+    function showConfirmation() {
+        var dataInceput = document.getElementById('dataInceput').value;
+        var dataFinal = document.getElementById('dataFinal').value;
+        var numarZile = (new Date(dataFinal) - new Date(dataInceput)) / (1000 * 60 * 60 * 24);
+        var pretTotal = numarZile * @Model.Proprietate.Price;
+
+        document.getElementById('confirmDataInceput').textContent = dataInceput;
+        document.getElementById('confirmDataFinal').textContent = dataFinal;
+        document.getElementById('confirmNumarZile').textContent = numarZile;
+        document.getElementById('confirmPretTotal').textContent = pretTotal.toFixed(2);
+
+        document.getElementById('confirmationDetails').style.display = 'block';
+    }
+</script>

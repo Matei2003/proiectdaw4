@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Lista Proprietati";
+}
+@model List<proiectdaw4.Model.Proprietate>
+
+<h2>Lista proprietati</h2>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Nume</th>
+            <th>Descriere</th>
+            <th>Tip</th>
+            <th>Pret</th>
+            <th>Actiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var proprietati in Model)
+            {
+                <tr>
+                    <td>@proprietati.Name</td>
+                    <td>@proprietati.Description</td>
+                    <td>@proprietati.Type</td>
+                    <td>@proprietati.Price</td>
+                    <td>
+                        @if (proprietati.UserEmail != @Context.Session.GetString("Email"))
+                        {
+                            <form method="get" asp-controller="Renting" asp-action="Inchiriaza" asp-route-id="@proprietati.Id">
+                                <button type="submit" class="rent">Inchiriaza</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" asp-controller="Renting" asp-action="Delete" asp-route-id="@proprietati.Id">
+                                <button type="submit" class="rent">Delete</button>
+                            </form>
+                        }
+                    </td>
+                    <td>
+                        
+                    </td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Nu exista proprietati disponibile.</td>
+            </tr>
+        }
+    </tbody>
+</table>
