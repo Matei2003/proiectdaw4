@@ -3,24 +3,33 @@
 }
 @model proiectdaw4.Model.Proprietate
 
-<h2>Adauga o proprietate</h2>
-
-<form method="post" asp-controller="Renting" asp-action="AdaugaProprietate">
-    <div class="form-group">
-        <label for="numeProprietate">Nume</label>
-        <input type="text" id="numeProprietate" asp-for="Name" class="form-control" placeholder="Ex: Casa Denis" />
+<div class="container">
+    <div class="row d-flex justify-content-center pt-5 mt-5">
+        <div class="col-md-6 signup-form-1">
+            <div class="d-flex justify-content-center">
+                <h2>Adauga o proprietate</h2>
+            </div>
+            <form method="post" asp-controller="Renting" asp-action="AdaugaProprietate">
+                <div class="form-group pb-3">
+                    <label for="numeProprietate">Nume:</label>
+                    <input type="text" class="form-control" id="numeProprietate" asp-for="Name" placeholder="Ex: Casa Denis" />
+                </div>
+                <div class="form-group pb-3">
+                    <label for="descriere">Descriere:</label>
+                    <input type="text" id="descriere" asp-for="Description" class="form-control" placeholder="Descrierea Locatiei" />
+                </div>
+                <div class="form-group pb-3">
+                    <label for="type">Tip:</label>
+                    <input type="text" class="form-control" id="type" asp-for="Type" placeholder="Ex: Vila - 5 camere, Apartament - 3 camere" />
+                </div>
+                <div class="form-group">
+                    <label for="price">Pret (RON) / Noapte:</label>
+                    <input type="number" class="form-control" id="price" asp-for="Price" placeholder="100" />
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" id="buton-propietati" class="btn btn-primary mt-3">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="descriere">Descriere</label>
-        <input type="text" id="descriere" asp-for="Description" class="form-control" placeholder="Descrierea Locatiei" />
-    </div>
-    <div class="form-group">
-        <label for="type">Tip</label>
-        <input type="text" id="type" asp-for="Type" class="form-control" placeholder="ex: Vila - 5 camere, Apartament - 3 camere" />
-    </div>
-    <div class="form-group">
-        <label for="price">Pret (RON) / Noapte</label>
-        <input type="number" id="price" asp-for="Price" class="form-control" placeholder="100" />
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">Submit</button>
-</form>
+</div>

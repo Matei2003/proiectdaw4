@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using System.Linq;
 using proiectdaw4.Data;
 using proiectdaw4.Model;
 
@@ -21,16 +22,22 @@ namespace proiectdaw4.Controllers
         }
 
         [HttpGet]
-        public IActionResult ListaProprietati()
+        [HttpGet]
+        public IActionResult ListaProprietati(string search)
         {
             if (HttpContext.Session.GetString("Email") != null)
             {
-                var proprietati = _context.Proprietati.ToList();
-                return View(proprietati);
+                var proprietati = _context.Proprietati.AsQueryable();
+
+                if (!string.IsNullOrEmpty(search))
+                {
+                    proprietati = proprietati.Where(p => p.Name.Contains(search));
+                }
+
+                return View(proprietati.ToList());
             }
 
             return RedirectToAction("Login", "Account");
-
         }
 
         [HttpGet]
@@ -212,6 +219,8 @@ namespace proiectdaw4.Controllers
 
             return RedirectToAction("ListaProprietati");
         }
+
+
 
         
     }

@@ -1,23 +1,62 @@
-﻿@{
-    ViewData["Title"] = "Login";
+﻿@page
+@{
+}
+@{
+    Layout = null;
 }
 
-<h2>Login</h2>
 
-<form method="post">
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" class="form-control" />
-    </div>
-    @if (ViewBag.ErrorMessage != null)
-    {
-        <div class="alert alert-danger mt-2">
-            @ViewBag.ErrorMessage
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/proiectdaw4.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="~/css/login-css.css">
+    <link rel="stylesheet" href="~/css/1.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <script src="js/bootstrap.bundle.js"></script>
+    <title>Proiect</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <div class="container login-container">
+        <div class="d-flex justify-content-center">
+            <a asp-controller="Home" asp-action="Index"><i class="fa-solid d-inline-block align-text-top" id="logo" alt="Bootstrap" width="30" height="24">DAW</i></a>
         </div>
-    }
-    <button type="submit" class="btn btn-primary mt-3">Login</button>
-</form>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 login-form-1">
+                <h3>Login</h3>
+                <form method="post">
+                    <div class="form-group pb-3">
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Email *" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password"  name="password" class="form-control" placeholder="Password *" value="" />
+                    </div>
+                    @if (ViewBag.ErrorMessage != null)
+                    {
+                        <div class="alert alert-danger mt-2">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+                    <div class="form-group d-flex justify-content-center p-3">
+                        <input type="submit" class="btnSubmit" value="Login" />
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                        <a href="~/Account/Register" class="ForgetPwd">Don't have an account?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-body-tertiary text-center text-lg-start mt-auto">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+            2025 - ProiectDAW
+        </div>
+    </footer>
+</body>
+</html>

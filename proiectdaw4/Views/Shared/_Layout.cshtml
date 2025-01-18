@@ -1,36 +1,42 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Aplicatie Rezervare Proprietati</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/proiectdaw3.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/proiectdaw4.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="~/css/1.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <script src="js/bootstrap.bundle.js"></script>
+    <title>Proiect</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: rgba(0, 0, 0, 0.05);">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Inchiriere Proprietati</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-action="AdaugaProprietati" asp-controller="Renting">Adauga o Proprietate</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-action="ListaProprietati" asp-controller="Renting">Lista de proprietati</a>
-                        </li>
-                    </ul>
+                <a class="navbar-brand" id="logo" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid d-inline-block align-text-top text-primary" id="logo" alt="Bootstrap" width="30" height="24">DAW</i>
+                    Inchiriere Proprietati
+                </a>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         @if (Context.Session.GetString("User") != null)
                         {
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-action="AdaugaProprietati" asp-controller="Renting">Adauga o Proprietate</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-action="ListaProprietati" asp-controller="Renting">Lista de proprietati</a>
+                                </li>
+                            </ul>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-action="Profile" asp-controller="Account">Salut, @Context.Session.GetString("User")</a>
+                                <a class="nav-link text-dark p-0" asp-action="Profile" asp-controller="Account">
+                                    <img src="~/poze/user.png" class="poza-login-signup" alt="">
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a class="btn btn-danger" asp-action="Logout" asp-controller="Account">Logout</a>
@@ -39,13 +45,48 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
+                                <a class="nav-link text-dark" href="~/Account/Login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Inregistrare</a>
+                                <a class="nav-link text-dark" href="~/Account/Register">Sign up</a>
                             </li>
                         }
                     </ul>
+                </div>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav2">
+                    <ul class="navbar-nav d-flex flex-row">
+                        @if (Context.Session.GetString("User") != null)
+                        {
+                            <ul class="d-flex list-unstyled">
+                                <li class="pe-3">
+                                    <a class="nav-link text-dark" id="nav-propietati" asp-action="AdaugaProprietati" asp-controller="Renting">Adauga o Proprietate</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" id="nav-propietati" asp-action="ListaProprietati" asp-controller="Renting">Lista de proprietati</a>
+                                </li>
+                            </ul>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark p-0" asp-action="Profile" asp-controller="Account">
+                                    <img src="~/poze/user.png" class="poza-login-signup" alt="">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-danger logout-nav" asp-action="Logout" asp-controller="Account">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link p-2" href="~/Account/Login">
+                                    <img src="~/poze/user.png" class="poza-login-signup" alt="">
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link p-2" href="~/Account/Register">
+                                    <img src="~/poze/signup.png" class="poza-login-signup" alt="">
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -57,9 +98,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - proiectdaw3 - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    <footer class="bg-body-tertiary text-center text-lg-start mt-auto">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+            2025 - ProiectDAW
         </div>
     </footer>
 
@@ -70,3 +111,4 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+

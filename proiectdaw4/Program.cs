@@ -10,7 +10,7 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        string bd = "Server=DESKTOP-AQMKK7O;Database=ProprietatiDB;Trusted_Connection=True;TrustServerCertificate=True;";
+        string bd = "Server=MATEI\\MSSQLSERVER01;Database=ProprietatiDB;Trusted_Connection=True;TrustServerCertificate=True;";
 
         builder.Services.AddDbContext<BdContext>(options => options.UseSqlServer(bd));
 

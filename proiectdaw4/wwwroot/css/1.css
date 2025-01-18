@@ -1,0 +1,136 @@
+﻿body {
+    font-family: 'Oswald';
+}
+
+#logo {
+    color: black !important;
+}
+
+#navbarNav2 {
+    display: none !important;
+}
+
+
+
+#buton-propietati{
+    padding-left: 100px !important;
+    padding-right:100px !important;
+}
+
+.poza-login-signup {
+    height: 40px;
+    width: 40px;
+}
+
+#cazino {
+    width: 100%;
+    height: 40rem;
+    object-fit: cover;
+    object-position: 50% 65%;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: fadeIn 2s;
+}
+
+    .centered p {
+        color: white;
+        font-size: 5rem;
+    }
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+@media screen and (max-width: 991px) {
+    #navbarNav2 {
+        display: contents !important;
+    }
+    #nav-propietati {
+        font-size:12px;
+    }
+    .logout-nav{
+        font-size:12px;
+    }
+    .poza-login-signup {
+        height: 35px;
+        width: 35px;
+    }
+}
+@media screen and (max-width: 817px) {
+    #Bine-ati-venit{
+        font-size:51px;
+    }
+    #cazino{
+        height:30rem;
+    }
+}
+
+
+    @media screen and (max-width: 546px) {
+        #logo{
+        font-size:15px;
+         }
+        #Bine-ati-venit {
+            font-size: 40px;
+        }
+        #cazino {
+            height: 20rem;
+        }
+
+
+}
+@media screen and (max-width: 476px) {
+    #logo {
+        font-size: 12px;
+    }
+    #nav-propietati {
+        font-size: 10px;
+    }
+
+    .logout-nav {
+        font-size: 10px;
+    }
+
+    .poza-login-signup {
+        height: 30px;
+        width: 30px;
+    }
+}
+
+@media screen and (max-width: 406px) {
+    #logo {
+        font-size: 10px;
+    }
+
+    #nav-propietati {
+        font-size: 8px;
+    }
+
+    .logout-nav {
+        font-size: 8px;
+    }
+
+    .poza-login-signup {
+        height: 25px;
+        width: 25px;
+    }
+    #Bine-ati-venit {
+        font-size: 25px;
+    }
+
+    #cazino {
+        height: 15rem;
+    }
+}
